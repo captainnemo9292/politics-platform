@@ -11,4 +11,5 @@ Doc2Vec 모델 및 개체명 인식 기반 정치 기사 추천 웹 서비스
 한 번씩 봐주시면 감사하겠습니다.
 
 웹서비스: https://politics-platform-web-sva4lzoc7q-an.a.run.app/
+
 데모 영상: https://www.youtube.com/watch?v=QmhBJfef4ro
