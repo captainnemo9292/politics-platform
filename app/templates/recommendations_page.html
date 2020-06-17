@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Page Title</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/page.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+  </head>
+  <body>
+    <div class="container-fluid mt-3">
+      <div class="row">
+        <div class="col-md-3 mb-3 order-1">
+        </div>
+        <div class="col-md-6 order-3 order-md-2">
+          <div class="card shadow mb-3">
+            <div class="form-group">
+            </div>
+          <h6>
+          나의 정치적 성향과 관련된 발언을 정리한 내용입니다. 넓은 안목을 기르는데에 도움을 줄 수 있도록 유사한 의견 뿐 아니라 반대 의견 또한 반영한 기사 추천입니다.
+        </h6>
+         <div class="form-group">
+         </div>
+          </div>
+          {% for sent, summarized, d, url, ner, title in zip(sentiment_sentences, summarize_news, date, urls, ner_data, titles) %}
+          <div class="card shadow mb-3">
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <h6>
+                    정치적 발언: {{ sent }}
+                  </h6>
+                </div>
+                <div class="form-group">
+                  <p>
+                    {{ d }}
+                  </p>
+                </div>
+                <div class="form-group">
+                  <a href="{{ url }}" style="font-weight: bold;">{{ title }}</a>
+                </div>
+                <div class="form-group">
+                <p>요약: {{ summarized }}</p>
+              </div>
+                <div class="form-group">
+                  <p>{{ ner['인물'] }}</p>
+                  <p>{{ ner['정당'] }}</p>
+                  <p>{{ ner['기관/집단'] }}</p>
+                  <p>{{ ner['장소'] }}</p>
+                </div>
+              </form>
+            </div>
+          </div>
+          {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

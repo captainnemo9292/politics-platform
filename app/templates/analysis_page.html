@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Page Title</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/page.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+  </head>
+  <body>
+    <div class="container-fluid mt-3">
+      <div class="row">
+        <div class="col-md-3 mb-3 order-1">
+        </div>
+        <div class="col-md-6 order-3 order-md-2">
+          <div class="card shadow mb-3">
+            <div class="form-group">
+            </div>
+          <p>
+          입력하신 키워드로 검색된 정치 기사의 내용을 요약하고 정치 이슈와 관련된 인물, 정당, 기관/집단, 장소 정보를 정리한 결과입니다.
+        </p>
+         <div class="form-group">
+         </div>
+          </div>
+          {% for i, summarized_sent in enumerate(summarize_news) %}
+          <div class="card shadow mb-3">
+            <div class="card-body">
+                <div class="form-group">
+                  <a href="{{ urls[i] }}" style="font-weight: bold;">{{ titles[i] }}</a>
+                  <p>{{ summarized_sent }}</p>
+                </div>
+                <div class="form-group">
+                  <p>{{ ner_data[i]['인물'] }}</p>
+                  <p>{{ ner_data[i]['정당'] }}</p>
+                  <p>{{ ner_data[i]['기관/집단'] }}</p>
+                  <p>{{ ner_data[i]['장소'] }}</p>
+                </div>
+            </div>
+          </div>
+          {% endfor %}
+          <div class="card shadow mb-3">
+          <div class="form-group">
+          </div>
+          <p>
+          이슈에 대한 다양한 정치적 의견 및 정책을 정리한 결과입니다. 동의하는 내용의 체크박스를 모두 선택한 후 제출 버튼을 누르면 유사한 정치적 발언 및 기사를 추천해드립니다.
+        </p>
+        <div class="form-group">
+          <form action="{{ url_for('recommendations_loading') }}" method="post">
+          <button class="btn btn-primary float-right" style="background-color:#14C8E1; border-color:#14C8E1;"><i class="fas fa-comment"></i>제출</button>
+        </div>
+          </div>
+          {% for sentence in sentiment_sents %}
+          <div class="card shadow mb-3">
+            <div class="card-body">
+                <div class="form-group">
+                  <p>{{ sentence }}</p>
+                </div>
+                <div class="form-group">
+                  <input type="checkbox" name="pr" value="{{ sentence }}">
+                  <p>동의합니다</p>
+                </div>
+                <div class="form-group">
+                </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        </form>
+        <div class="col-md-3 mb-3 order-2 order-md-3">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
